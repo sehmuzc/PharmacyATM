@@ -1,0 +1,40 @@
+{% extends "pharmacy/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <h1>Medicine Sales</h1>
+<article class="media content-section">
+  <div class="media-body">
+  <form method="post">
+    {% csrf_token %}
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" value="{{ start_date|default:'' }}">
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" value="{{ end_date|default:'' }}">
+    <button type="submit">Filter</button>
+  </form>
+
+{% if sales_data %}
+  <table>
+    <thead>
+      <tr>
+        <th>Medicine</th>
+        <th>Total Quantity Sold</th>
+        <th>Total Sales Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for medicine, data in sales_data.items %}
+        <tr>
+          <td>{{ medicine }}</td>
+          <td>{{ data.quantity }}</td>
+          <td>{{ data.price }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No sales data found.</p>
+{% endif %}
+  </div>
+</article>
+{% endblock %}

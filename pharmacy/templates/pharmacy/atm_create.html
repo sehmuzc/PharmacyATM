@@ -1,0 +1,14 @@
+{% extends "pharmacy/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <h2>Add ATM</h2>
+  <form method="POST">
+    {% csrf_token %}
+     {{ atm_form|crispy }}
+    <h3>Add Medicine</h3>
+      {{ atm_medicine_form|crispy }}
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit"> Create ATM </button>
+			</div>
+  </form>
+{% endblock %}
